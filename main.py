@@ -13,7 +13,7 @@ def prep(path):
     return thresh
 
 def ocr(path):
-    processed_img = prep(path)
+    cleanedimg = prep(path)
     return pytesseract.image_to_string(processed_img)
 
 def medsum(text):
