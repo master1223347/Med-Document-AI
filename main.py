@@ -29,7 +29,7 @@ def medsum(text):
     )
     return response.choices[0].message.content.strip()
 
-path = "medical_document.png"
+path = " " #add file name here
 text = ocr(path)
 print(text)
 print(medsum(text))
