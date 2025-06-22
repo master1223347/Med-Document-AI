@@ -1,8 +1,9 @@
+#import dependencies 
 import cv2
 import pytesseract
 import openai
 
-openai.api_key = "YOUR_OPENAI_API_KEY"
+openai.api_key = "YOUR_OPENAI_API_KEY" #You're going to need an openai API key to run this
 
 def prep(path):
     img = cv2.imread(path)
@@ -14,7 +15,7 @@ def prep(path):
 
 def ocr(path):
     cleanedimg = prep(path)
-    return pytesseract.image_to_string(processed_img)
+    return pytesseract.image_to_string(cleanedimg)
 
 def medsum(text):
     prompt = ("You are a helpful medical assistant. Given the following medical document text, "
@@ -22,10 +23,10 @@ def medsum(text):
               "patient’s symptoms, diagnosis, and any recommendations. Avoid medical jargon.\n\n"
               + text)
     response = openai.ChatCompletion.create(
-        model="gpt-4o-mini",
+        model="gpt-4o-mini", #change model depending on budget/runtime constraints
         messages=[{"role": "user", "content": prompt}],
-        temperature=0.7,
-        max_tokens=500,
+        temperature=0.3,
+        max_tokens=500, 
     )
     return response.choices[0].message.content.strip()
 
